@@ -37,7 +37,7 @@ class ApiAuth:
         if url.query:
           path = path + '?' + url.query
 
-        string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type.decode(), content_md5, path, httpdate)
+        string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type, content_md5, path, httpdate)
 
         digest = hmac.new(self.password, string_to_sign.encode(), hashlib.sha1).digest()
         signature = base64.encodestring(digest).rstrip()
