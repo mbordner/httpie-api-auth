@@ -24,7 +24,12 @@ class ApiAuth:
 
         content_md5  = r.headers.get('content-md5')
         if not content_md5:
-            content_md5 = ''
+            if content_type:
+                m = hashlib.md5()
+                m.update(r.body)
+                content_md5 = base64.standard_b64encode(m.digest()).decode('utf-8')
+            else:
+                content_md5 = ''
 
         httpdate = r.headers.get('date')
         if not httpdate:
