@@ -21,7 +21,7 @@ class ApiAuth:
         content_type = r.headers.get('content-type')
         if not content_type:
             if r.body != None and len(r.body) > 0:
-                content_type = 'application/json'.decode('ascii')
+                content_type = 'application/json'
             else:
                 content_type = ''
 
@@ -46,7 +46,7 @@ class ApiAuth:
         if url.query:
           path = path + '?' + url.query
 
-        string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type, content_md5, path, httpdate)
+        string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type.decode('ascii'), content_md5, path, httpdate)
         print(string_to_sign)
 
         digest = hmac.new(self.password, string_to_sign.encode('ascii'), hashlib.sha1).digest()
