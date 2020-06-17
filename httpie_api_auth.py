@@ -42,7 +42,7 @@ class ApiAuth:
         digest = hmac.new(self.password, string_to_sign.encode(), hashlib.sha1).digest()
         signature = base64.encodestring(digest).rstrip()
 
-        r.headers['Authorization'] = 'APIAuth %s:%s' % (self.username, signature.decode())
+        r.headers['Authorization'] = 'APIAuth %s:%s' % (self.username, signature)
         return r
 
 class ApiAuthPlugin(AuthPlugin):
