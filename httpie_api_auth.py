@@ -28,6 +28,7 @@ class ApiAuth:
                 m = hashlib.md5()
                 m.update(r.body)
                 content_md5 = base64.standard_b64encode(m.digest()).decode('utf-8')
+                r.headers['Content-MD5'] = content_md5
             else:
                 content_md5 = ''
 
