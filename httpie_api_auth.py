@@ -13,7 +13,7 @@ __licence__ = 'MIT'
 class ApiAuth:
     def __init__(self, username=None, password=None):
         self.username = username
-        self.password = password.encode('ascii')
+        self.password = password
 
     def __call__(self, r):
         method = r.method.upper()
@@ -39,7 +39,7 @@ class ApiAuth:
 
         string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type, content_md5, path, httpdate)
 
-        digest = hmac.new(self.password, string_to_sign.encode(), hashlib.sha1).digest()
+        digest = hmac.new(self.password, string_to_sign, hashlib.sha1).digest()
         signature = base64.encodestring(digest).rstrip()
 
         r.headers['Authorization'] = 'APIAuth %s:%s' % (self.username, signature)
