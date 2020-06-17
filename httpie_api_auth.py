@@ -38,9 +38,8 @@ class ApiAuth:
           path = path + '?' + url.query
 
         string_to_sign = '%s,%s,%s,%s,%s' % (method, content_type, content_md5, path, httpdate)
-        print(string_to_sign)
 
-        digest = hmac.new(self.password, string_to_sign.encode(), hashlib.sha1).digest()
+        digest = hmac.new(self.password, string_to_sign.encode('ascii'), hashlib.sha1).digest()
         signature = base64.encodestring(digest).rstrip()
 
         r.headers['Authorization'] = 'APIAuth %s:%s' % (self.username, signature)
