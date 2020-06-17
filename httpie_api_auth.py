@@ -20,7 +20,10 @@ class ApiAuth:
 
         content_type = r.headers.get('content-type')
         if not content_type:
-            content_type = ''
+            if len(r.body) > 0:
+                content_type = 'application/json'
+            else:
+                content_type = ''
 
         content_md5  = r.headers.get('content-md5')
         if not content_md5:
