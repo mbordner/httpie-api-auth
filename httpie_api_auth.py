@@ -13,7 +13,7 @@ __licence__ = 'MIT'
 class ApiAuth:
     def __init__(self, username=None, password=None):
         self.username = username
-        self.password = password
+        self.password = password.encode('ascii')
 
     def __call__(self, r):
         method = r.method.upper()
